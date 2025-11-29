@@ -19,6 +19,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@types/screeps": "^3.3.8",
     "chokidar": "^5.0.0"
   }
 }

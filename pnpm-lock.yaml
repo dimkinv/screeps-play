@@ -12,11 +12,17 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
     devDependencies:
+      '@types/screeps':
+        specifier: ^3.3.8
+        version: 3.3.8
       chokidar:
         specifier: ^5.0.0
         version: 5.0.0
 
 packages:
+
+  '@types/screeps@3.3.8':
+    resolution: {integrity: sha512-PlZRi5l0RaYNI67BgH4AUxhPeK9fKOyPNdFOVYiT66Olj1RtTjEaPY/REUNTSFKREczKM4oeLuVebJh6uorxzw==}
 
   chokidar@5.0.0:
     resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
@@ -32,6 +38,8 @@ packages:
     hasBin: true
 
 snapshots:
+
+  '@types/screeps@3.3.8': {}
 
   chokidar@5.0.0:
     dependencies:
