@@ -8,17 +8,20 @@
 
 export type FindTargetType = 'source' | 'enemy' | 'controller' | 'spawn';
 
+
 /**
- * A minimal, higher-level wrapper that offers utility functions for a `Creep`.
- */
+ * Lightweight wrapper around a Screeps creep instance.
+ *
+ * @param creep - The Screeps `Creep` instance to wrap
+
+*/
 export class CreepWrapper {
-  /** The underlying Screeps `Creep` instance */
-  readonly creep: Creep;
+  private readonly creep: Creep;
 
   /**
-   * Create a new wrapper for a creep.
+   * Create a new wrapper for the provided creep.
    *
-   * @param creep - The Screeps `Creep` instance to wrap
+   * @param creep - The Screeps creep to wrap.
    */
   constructor(creep: Creep) {
     this.creep = creep;
@@ -35,7 +38,7 @@ export class CreepWrapper {
    * @param type - The type of object to search for
    * @returns The closest matching game object, or `null` if none found.
    */
-  public findClosest(type: FindTargetType): RoomObject | null {
+  public findClosest(type: FindTargetType): Source | Creep | StructureController | AnyStructure | null {
     switch (type) {
       case 'source':
         // Surround in try/catch to avoid runtime errors during unit tests (if constants not loaded)
@@ -68,7 +71,32 @@ export class CreepWrapper {
         return null;
     }
   }
+
+  /**  
+   * Get the wrapped creep instance.
+   *
+   * @returns The underlying Screeps creep.
+   */
+  public getCreep(): Creep {
+    return this.creep;
+  }
+
+  /**
+   * Retrieve the creep's memory object.
+   *
+   * @returns The memory associated with the creep.
+   */
+  public getMemory(): CreepMemory {
+    return this.creep.memory;
+  }
+
+  /**
+   * Accessor for the creep's unique name.
+   *
+   * @returns The name of the creep.
+   */
+  public getName(): string {
+    return this.creep.name;
+  }
 }
 
-// Convenience default export for easy consumption in `play` code
-export default CreepWrapper;
