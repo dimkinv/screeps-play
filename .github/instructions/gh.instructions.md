@@ -1,3 +1,7 @@
+---
+applyTo: '**'
+---
+
 # Project structure and instructions for Screeps Play
 
 ## Goal
