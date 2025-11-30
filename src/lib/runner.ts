@@ -5,6 +5,7 @@ import { CreepWrapper } from './creep-wrapper';
  */
 export enum CreepType {
   Harvester = 'Harvester',
+  Upgrader = 'Upgrader',
 }
 
 interface TrackedCreepMemory extends CreepMemory {
@@ -52,7 +53,7 @@ export class Runner {
       }
     }
 
-    this.refreshWrapperCache(creeps);
+    this.refreshWrapperCache(creeps, creepType, creepLevel);
   }
 
   /**
@@ -88,11 +89,12 @@ export class Runner {
     });
   }
 
-  private refreshWrapperCache(creeps: Creep[]): void {
+  private refreshWrapperCache(creeps: Creep[], creepType: CreepType, creepLevel: number): void {
     const existingNames = new Set(creeps.map((creep) => creep.name));
 
-    for (const name of this.creepWrappers.keys()) {
-      if (!existingNames.has(name)) {
+    for (const [name, wrapper] of this.creepWrappers) {
+      const memory = wrapper.getMemory() as TrackedCreepMemory;
+      if (memory.role === creepType && memory.level === creepLevel && !existingNames.has(name)) {
         this.creepWrappers.delete(name);
       }
     }
@@ -126,5 +128,6 @@ export class Runner {
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Harvester, 1), ['work', 'carry', 'move']);
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Harvester, 2), ['work', 'work', 'carry', 'move', 'move']);
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Harvester, 3), ['work', 'work', 'work', 'carry', 'carry', 'move', 'move']);
+    this.bodyDefinitions.set(this.createBodyKey(CreepType.Upgrader, 1), ['work', 'carry', 'move']);
   }
 }

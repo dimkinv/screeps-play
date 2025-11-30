@@ -48,6 +48,8 @@ Current state: only directories have been created with a `.gitkeep` placeholder 
    }
    ```
 
+3. Movement visualization rule: Any movement helper or API you add or modify must visualize the intended path (e.g., by setting an appropriate `visualizePathStyle` when calling Screeps movement APIs) so movement is consistently rendered in replays and the live client.
+
 These rules are intentional to keep the project's structure consistent and to make exported APIs predictable and well-documented for both contributors and the runtime `play` code.
 
 ## Build pipeline (current)
