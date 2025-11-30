@@ -69,6 +69,17 @@ function ensureDir(dir) {
   }
 }
 
+// Remove existing output dir contents first — this prevents old files from persisting
+// (for example `play.main.js`) which may cause the Screeps runtime to load a module
+// twice (both `main.js` and `play.main.js`). Always start from a clean directory.
+try {
+  if (fs.existsSync(outputDir)) {
+    fs.rmSync(outputDir, { recursive: true, force: true });
+  }
+} catch (err) {
+  console.error('Failed to clean output dir', outputDir, err);
+  // continue — we'll attempt to create the dir below
+}
 ensureDir(outputDir);
 
 // Utility to find a mapping for a resolved import path
