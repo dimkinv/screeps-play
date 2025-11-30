@@ -1,9 +1,11 @@
 import { CreepType, Runner } from "../lib/runner";
+import { buildClosestConstructionSite } from "./builder.handlers";
 import { upgradeControllerFromSource } from "./upgrader.handlers";
 
 const runner = new Runner('W23S22');
 runner.maintainCreepPopulation(CreepType.Harvester, 1, 2);
 runner.maintainCreepPopulation(CreepType.Upgrader, 1, 3);
+runner.maintainCreepPopulation(CreepType.Builder, 1, 2);
 
 runner.forEachCreepOfType(CreepType.Harvester, 1, c => {
     const source = c.findClosest('source');
@@ -29,3 +31,4 @@ runner.forEachCreepOfType(CreepType.Harvester, 1, c => {
 });
 
 runner.forEachCreepOfType(CreepType.Upgrader, 1, upgradeControllerFromSource);
+runner.forEachCreepOfType(CreepType.Builder, 1, buildClosestConstructionSite);

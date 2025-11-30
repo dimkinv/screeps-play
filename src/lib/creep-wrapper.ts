@@ -6,13 +6,14 @@
  * the project grows.
  */
 
-export type FindTargetType = 'source' | 'enemy' | 'controller' | 'spawn';
+export type FindTargetType = 'source' | 'enemy' | 'controller' | 'spawn' | 'constructionSite';
 
 type FindTargetMap = {
   source: Source;
   enemy: Creep;
   controller: StructureController;
   spawn: StructureSpawn;
+  constructionSite: ConstructionSite<BuildableStructureConstant>;
 };
 
 /**
@@ -158,6 +159,12 @@ export class CreepWrapper {
         } catch (e) {
           return null;
         }
+      case 'constructionSite':
+        try {
+          return (this.creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) ?? null) as FindTargetMap[TType] | null;
+        } catch (e) {
+          return null;
+        }
       default:
         // If an unsupported type is passed, return null.
         return null;
@@ -250,6 +257,16 @@ export class CreepWrapper {
    */
   public upgradeController(controller: StructureController): ScreepsReturnCode {
     return this.creep.upgradeController(controller);
+  }
+
+  /**
+   * Attempt to build the supplied construction site using the creep's stored energy.
+   *
+   * @param site - The construction site that should be progressed.
+   * @returns The Screeps return code from the underlying `build` call.
+   */
+  public build(site: ConstructionSite<BuildableStructureConstant>): ScreepsReturnCode {
+    return this.creep.build(site);
   }
 
   /**

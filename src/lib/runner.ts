@@ -6,6 +6,7 @@ import { CreepWrapper } from './creep-wrapper';
 export enum CreepType {
   Harvester = 'Harvester',
   Upgrader = 'Upgrader',
+  Builder = 'Builder',
 }
 
 interface TrackedCreepMemory extends CreepMemory {
@@ -129,5 +130,7 @@ export class Runner {
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Harvester, 2), ['work', 'work', 'carry', 'move', 'move']);
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Harvester, 3), ['work', 'work', 'work', 'carry', 'carry', 'move', 'move']);
     this.bodyDefinitions.set(this.createBodyKey(CreepType.Upgrader, 1), ['work', 'carry', 'move']);
+    this.bodyDefinitions.set(this.createBodyKey(CreepType.Builder, 1), ['work', 'carry', 'move']);
+    this.bodyDefinitions.set(this.createBodyKey(CreepType.Builder, 2), ['work', 'work', 'carry', 'carry', 'move', 'move']);
   }
 }
