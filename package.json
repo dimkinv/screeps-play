@@ -9,13 +9,17 @@
     "build:ts": "tsc -p tsconfig.json --outDir temp-dist",
     "build:flatten": "node tools/flatten-dist.js temp-dist dist",
     "build": "pnpm run build:ts && pnpm run build:flatten",
-    "start": "node tools/watch-and-flatten.js"
+    "build:upload": "pnpm run build && node tools/upload-screeps.js",
+    "start": "node tools/watch-and-flatten.js",
+    "start:upload": "node tools/watch-and-upload.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.17.0",
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "https-proxy-agent": "^7.0.4",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
