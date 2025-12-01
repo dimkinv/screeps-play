@@ -18,7 +18,8 @@ const email = process.env.SCREEPS_EMAIL || process.env.SCREEPS_USERNAME;
 const password = process.env.SCREEPS_PASSWORD;
 const branch = process.env.SCREEPS_BRANCH || 'default';
 const hostname = process.env.SCREEPS_HOST || 'screeps.com';
-const proxyUrl = process.env.SCREEPS_PROXY || 'http://localhost:8088';
+// Use a proxy only when SCREEPS_PROXY is explicitly set. No default proxy.
+const proxyUrl = process.env.SCREEPS_PROXY?.trim() || undefined;
 
 if (!email || !password) {
   console.error('Missing Screeps credentials. Set SCREEPS_EMAIL (or SCREEPS_USERNAME) and SCREEPS_PASSWORD in your environment or .env file.');
@@ -77,6 +78,8 @@ const requestOptions = {
 if (proxyUrl) {
   requestOptions.agent = new HttpsProxyAgent(proxyUrl);
   console.log(`Uploading via proxy ${proxyUrl}`);
+} else {
+  console.log('Uploading directly (no proxy)');
 }
 
 const req = https.request(requestOptions, res => {
